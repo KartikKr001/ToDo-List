@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import ToDoContext from "../../Context/ToDoContext";
+import ToDoDispatchContext from "../../Context/ToDoDispatchContext";
 
-function AddToDo({updateList}){
+function AddToDo(){
     const [inpTxt,setInp] = useState('');
     const {list_todo,setList} = useContext(ToDoContext);
+    const {dispatch} = useContext(ToDoDispatchContext);
     console.log("list is :",list_todo);
     return(
         <div>
@@ -18,8 +20,7 @@ function AddToDo({updateList}){
             <button disabled={inpTxt == ""}
                     onClick={()=>{
                         console.log(inpTxt);
-                        console.log(typeof updateList);
-                        updateList(inpTxt);
+                        dispatch({type:'add_todo',payload:{todoData:{inpTxt}}})
                         setInp('')
                     }
                 }> Add</button>
